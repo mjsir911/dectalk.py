@@ -8,6 +8,7 @@ version = "0.0.1"
 
 [tool.py-build-cmake.cmake]
 source_path = "dectalk"
+options = { "CMAKE_INSTALL_LIBDIR" = "dectalk/" }
 
 [tool.py-build-cmake.sdist]
 include = ["dectalk"]
@@ -15,4 +16,3 @@ include = ["dectalk"]
 [tool.py-build-cmake.module]
 directory = "src"
 # namespace=true
-# name = "wasd"
