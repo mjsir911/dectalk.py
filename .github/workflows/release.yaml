@@ -1,0 +1,44 @@
+name: Build Python Wheel
+
+on:
+  push:
+    tags: 
+      - '*'
+
+jobs:
+  build-wheel:
+    name: Build Python Wheel
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        container:
+          - quay.io/pypa/musllinux_1_2_x86_64
+          - quay.io/pypa/manylinux_2_28_x86_64
+        python: ["3.9", "3.10", "3.11", "3.12"]
+
+    container:
+      image: ${{ matrix.container }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build wheel
+        run: |
+          python${{ matrix.python }} -m pip wheel .
+
+      - name: Repair wheel with auditwheel
+        run: |
+          auditwheel repair *.whl --wheel-dir dist
+
+      - name: List built wheels
+        run: ls -lh dist
+
+
+      - name: Upload wheel to GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
