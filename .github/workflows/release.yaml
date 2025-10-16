@@ -67,6 +67,7 @@ jobs:
 
   deploy-gh:
     needs: build
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -85,6 +86,7 @@ jobs:
 
   deploy-pypi:
     needs: build
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
     steps:
