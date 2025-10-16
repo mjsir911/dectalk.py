@@ -2,16 +2,22 @@ name: Build Python Wheel
 
 on:
   push:
-    tags: 
+    tags:
       - '*'
 
 permissions:
   contents: write
 
 jobs:
-  build-wheel:
+  build-publish:
     name: Build Python Wheel
     runs-on: ubuntu-latest
+
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/dectalk/
+    permissions:
+      id-token: write
 
     strategy:
       matrix:
@@ -47,3 +53,9 @@ jobs:
           files: dist/*.whl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Publish package distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/

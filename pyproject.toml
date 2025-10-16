@@ -1,10 +1,29 @@
+[project]
+name = "dectalk"
+version = "0.0.3"
+authors = [
+  { name="m", email="m@sirabella.org" },
+]
+description = "dectalk tts engine in python"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+license = "AGPL-3.0"
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/mjsir911/dectalk.py"
+Issues = "https://github.com/mjsir911/dectalk.py/issues"
+
+
+
+
 [build-system]
 requires = ["py-build-cmake"]
 build-backend = "py_build_cmake.build"
 
-[project]
-name = "dectalk"
-version = "0.0.1"
 
 [tool.py-build-cmake.cmake]
 source_path = "dectalk"
@@ -12,6 +31,16 @@ options = { "CMAKE_INSTALL_LIBDIR" = "dectalk/" }
 
 [tool.py-build-cmake.sdist]
 include = ["dectalk"]
+exclude = [
+    "dectalk/src/docs/**",       # exclude docs recursively
+    "dectalk/src/samples/**",    # exclude samples
+    "dectalk/src/help/**",
+    "dectalk/src/hardware/**",
+    "dectalk/src/Installation/**",
+    "dectalk/src/microsoft/**",
+    "dectalk/src/tools/**",
+    "dectalk/.git/**",
+]
 
 [tool.py-build-cmake.module]
 directory = "src"
