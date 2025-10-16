@@ -63,38 +63,38 @@ jobs:
           path: dist
           pattern: "*"
           merge-multiple: true
-      - run: ls -R my-artifact
+      - run: ls -R dist
 
-  # deploy-gh:
-  #   needs: build
-  #   permissions:
-  #     contents: write
-  #   steps:
-  #     - name: Download All Artifacts
-  #       uses: actions/download-artifact@v5
-  #       with:
-  #         path: dist
-  #         pattern: *
-  #         merge-multiple: true
-  #     - name: Upload wheel to GitHub release
-  #       uses: softprops/action-gh-release@v2
-  #       with:
-  #         files: dist/*.whl
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  deploy-gh:
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v5
+        with:
+          path: dist
+          pattern: "*"
+          merge-multiple: true
+      - name: Upload wheel to GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # deploy-pypi:
-  #   needs: build
-  #   permissions:
-  #     id-token: write
-  #   steps:
-  #     - name: Download All Artifacts
-  #       uses: actions/download-artifact@v5
-  #       with:
-  #         path: dist
-  #         pattern: *
-  #         merge-multiple: true
-  #     - name: Publish package distributions to TestPyPI
-  #       uses: pypa/gh-action-pypi-publish@release/v1
-  #       with:
-  #         repository-url: https://test.pypi.org/legacy/
+  deploy-pypi:
+    needs: build
+    permissions:
+      id-token: write
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v5
+        with:
+          path: dist
+          pattern: "*"
+          merge-multiple: true
+      - name: Publish package distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
