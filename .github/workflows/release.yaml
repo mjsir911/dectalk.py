@@ -24,7 +24,7 @@ jobs:
 
       - name: Build sdist
         run: |
-          python3 -m build --sdist
+          python3.14 -m build --sdist
 
       - uses: actions/upload-artifact@v4
         with:
