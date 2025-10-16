@@ -13,9 +13,6 @@ jobs:
     name: Build Python Wheel
     runs-on: ubuntu-latest
 
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/p/dectalk/
     permissions:
       id-token: write
       contents: write
@@ -89,6 +86,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/dectalk/
     steps:
       - name: Download All Artifacts
         uses: actions/download-artifact@v5
