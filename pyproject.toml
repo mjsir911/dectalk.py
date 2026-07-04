@@ -27,7 +27,7 @@ build-backend = "py_build_cmake.build"
 
 [tool.py-build-cmake.cmake]
 source_path = "dectalk"
-options = { "CMAKE_INSTALL_LIBDIR" = "dectalk/" }
+options = { "CMAKE_INSTALL_LIBDIR" = "dectalk/", "USE_PULSEAUDIO" = false, "USE_ALSA" = false }
 
 [tool.py-build-cmake.sdist]
 include = ["dectalk"]
@@ -45,3 +45,5 @@ exclude = [
 [tool.py-build-cmake.module]
 directory = "src"
 # namespace=true
+
+
